@@ -11,15 +11,44 @@ define jh = Character('이진혁', color="#0d3bd4")
 define yj = Character('용준씨', color='#34eb52')
 define drg = Character('다람쥐', color='#34eb52')
 init python:
+    # 변수 선언
     first_choice = ""
     second_choice =""
     third_choice =""
+
+    # 스크린 선언
+    # 스크린 문은 init 블록 안에서 작성하는 게 좋습니다.
+    screen main_background:
+        add "메인배경.png" xalign 0.5 yalgin 0.5
+
+        #텍스트 입력 가능
+        # text ""
+
+    screen buttons:
+        textbutton "히든게임으로 이동합니다" action Jump("hidden_game")
+        #call screen buttons 
+
+    # 스탯창
+    screen stat:
+        frame:
+            align (0.0, 0.7) # 스탯창의 위치
+            grid 3 2: # text 정렬용 박스 4열 2행자리 정렬용 박스를 만든다 
+                text '멘탈'
+                text '관찰력'
+                text '아이돌력' 
+
+                text str(mental) # 해당 변수의 수치 표시
+                text str(insight)
+                text str(idol_power)
+        
+        #textbutton '완료' action Return() align (.5, .5) # 스케줄 완료 시 누르면 됨
 
 # 여기에서부터 게임이 시작합니다.
 label start:
 
     jh "본격 이진혁 육성 게임 "
 
+    show screen main_background
     show koongya basic
     jh "야 ... 나와바 ... 성공한 이진혁 보여줄께..."
 
@@ -32,10 +61,10 @@ label start:
     yj "무슨 소리야! 네가 하고싶은 곳으로 가야지. 결정 못하겠으면 내가 추천해줄까?"
     jh "고마워><"
 
-
+    hide screen main_background
 
     show koongya laugh at slightleft
-    jh "선택지를 골라봐"
+    yj "성준아 내 생각에는 ... "
     #hide koongya
 
     # scene 1
@@ -118,11 +147,11 @@ label start:
 
 
 label first_step:
-    sj "[first_choice]를 선택했구나."
+    yj "내 생각에는 [first_choice]가 좋을 것 같아."
 
     if first_choice == "밴드부":
-        "밴드부(마카오팬미 비하인드 에어드럼)"
-        sj "난 에어드럼으로도 충분한거 같아 ^^"
+        # 밴드부(마카오팬미 비하인드 에어드럼)
+        yj "요즘 아이돌에 관심 있다고 하지 않았어? 너의 스타적인 매력을 발산하는 거지."
         "fail"
     elif first_choice == "테디베어부":
         sj "테디베어부?"
